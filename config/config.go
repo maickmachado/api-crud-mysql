@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/spf13/viper"
@@ -37,4 +38,5 @@ func LoadAppConfig() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println("concluido sem erros")
 }

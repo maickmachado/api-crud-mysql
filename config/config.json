@@ -1,4 +1,4 @@
 {
-    "connection_string": "root:root@tcp(127.0.0.1:3306)/apimysql",
+    "connection_string": "root:abc@tcp(127.0.0.1:3306)/apimysql",
     "port": 8080
 }
