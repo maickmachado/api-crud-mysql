@@ -1,11 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"golang-crud-sql/config"
 	"golang-crud-sql/database"
 	"golang-crud-sql/routes"
-	"log"
 )
 
 func main() {
@@ -23,5 +21,5 @@ func main() {
 	database.Migrate()
 
 	// Start the server
-	log.Println(fmt.Sprintf("Starting Server on port %s", config.AppConfig.Port))
+	//log.Println(fmt.Sprintf("Starting Server on port %s", config.AppConfig.Port))
 }
