@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"golang-crud-sql/database"
 	"golang-crud-sql/entities"
 	"net/http"
@@ -9,8 +10,13 @@ import (
 	"github.com/gorilla/mux"
 )
 
+func Home(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("respondendo")
+}
+
 func CreateProduct(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	fmt.Println("func CreateProduct")
 	// Defines a new product variable.
 	var product entities.Product
 	//Decodes the Body of the Incoming JSON request and maps it to the newly created product variable.
@@ -56,6 +62,7 @@ func GetProductById(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetProducts(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("chega ate aqui")
 	//Here we define an empty new list of products.
 	var products []entities.Product
 	//Maps all the available products into the product list variable.

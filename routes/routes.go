@@ -11,6 +11,7 @@ import (
 
 func HandleRequest() {
 	myRouter := mux.NewRouter().StrictSlash(true)
+	myRouter.HandleFunc("/", controllers.Home).Methods("GET")
 	myRouter.HandleFunc("/api/products", controllers.GetProducts).Methods("GET")
 	myRouter.HandleFunc("/api/products/{id}", controllers.GetProductById).Methods("GET")
 	myRouter.HandleFunc("/api/products", controllers.CreateProduct).Methods("POST")
@@ -18,4 +19,6 @@ func HandleRequest() {
 	myRouter.HandleFunc("/api/products/{id}", controllers.DeleteProduct).Methods("DELETE")
 	log.Fatal(http.ListenAndServe(":8080", myRouter))
 	//log.Fatal(http.ListenAndServe(config.AppConfig.Port, myRouter))
+	//2022/08/01 18:14:44 listen tcp: address 8080: missing port in address
+	//exit status 1
 }
