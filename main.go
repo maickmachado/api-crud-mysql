@@ -1,28 +1,23 @@
 package main
 
 import (
-	"fmt"
 	"golang-crud-sql/config"
 	"golang-crud-sql/database"
 	"golang-crud-sql/routes"
 )
 
 func main() {
-	//inicializa a função LoadAppConfig do arquivo config.go
+	//inicializa a função LoadAppConfig do pacote config
 	//utiliza o pacote viper para otimizar as configurações
 	config.LoadAppConfig()
-	fmt.Println("1..")
-	//acessa a variavel ApConfig do arquivo config.go do pacote main e acessa o conection string
-	//sing the database package and the connection string from the JSON file, the application attempts to connect to the MySQL Database
-	//and migrates the required table.
-	fmt.Println(config.AppConfig.ConnectionString)
+	//acessa a função Connect no pacote database
+	//a função recebe o connection string do pacote config acessado através da variável AppConfig
+	//nomedousuári:senha@protocolo(127.0.0.1:3306)/nomedobancodedados
+	//"connection_string": "root:abc@tcp(127.0.0.1:3306)/apimysql",
 	database.Connect(config.AppConfig.ConnectionString)
-	fmt.Println("chegou aqui")
+	//acessa a função Migrate do pacote database
 	database.Migrate()
-	//acessa o arquivo routes.go e inicializa a função HandleRequest
-	routes.HandleRequest()
-	fmt.Println("2..")
-
-	// Start the server
 	//log.Println(fmt.Sprintf("Starting Server on port %s", config.AppConfig.Port))
+	//acessa a função HandleRequest do pacote routes
+	routes.HandleRequest()
 }

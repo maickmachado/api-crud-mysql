@@ -8,12 +8,13 @@ import (
 	"gorm.io/gorm"
 )
 
-// Defines an instance of the database and an error variable that will be used within other functions.
+//definição de uma variável para o banco de dados e uma para o erro
+//o fato de ser criada fora de uma função pode ser acessada por diversas
 var Instance *gorm.DB
 var err error
 
-//This function basically attempts to connect to the database via GORM helpers using the connection string provided in our config.json.
-//Once connected, the variable Instance will be able to access the database to perform operations.
+//função que faz conecção com o banco de dados utilizando o GORM
+//após acessado, a variável Instance vai conseguir executar operações no banco de dados
 func Connect(connectionString string) {
 	Instance, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{})
 	if err != nil {
@@ -23,8 +24,7 @@ func Connect(connectionString string) {
 	log.Println("Connected to Database...")
 }
 
-// It’s kinda important to make sure that the Entities in concern exist as tables in the connected database.
-//This particular method ensures that a table named products is created on the connected database.
+//função que assegura que a tabela do banco de dados será igual ao struct criado
 func Migrate() {
 	Instance.AutoMigrate(&entities.Product{})
 	log.Println("Database Migration Completed...")

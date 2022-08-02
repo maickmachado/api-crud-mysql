@@ -11,7 +11,6 @@ import (
 
 func HandleRequest() {
 	myRouter := mux.NewRouter().StrictSlash(true)
-	myRouter.HandleFunc("/", controllers.Home).Methods("GET")
 	myRouter.HandleFunc("/api/products", controllers.GetProducts).Methods("GET")
 	myRouter.HandleFunc("/api/products/{id}", controllers.GetProductById).Methods("GET")
 	myRouter.HandleFunc("/api/products", controllers.CreateProduct).Methods("POST")

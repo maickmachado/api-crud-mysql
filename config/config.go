@@ -1,35 +1,32 @@
 package config
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/spf13/viper"
 )
 
-//Here we define a struct that will contain the allowed configurations.
-//In our case, it will be the port number and the MySQL connection string.
+//struct que guarda todas as configurações
 type Config struct {
 	Port             string `mapstructure:"port"`
 	ConnectionString string `mapstructure:"connection_string"`
 }
 
-//Here we define the AppConfig variable that will be accessed by other files and packages within the application code.
+//variável que do tipo Config que poderá ser acessada de outros arquivos e pacotes
 var AppConfig *Config
 
-//Here is where we use Viper to load configurations from the config.json file ( which we will create in the next step)
-//and assign its values to the AppConfig variable.
-//The idea will be to call the LoadAppConfig function from the main program which in turn will be loading the data from
-//the JSON file into the AppConfig variable.
+//Viper é usado para carregar as configurações do arquivo config.json
+//os valores são passados para a variável criada AppConfig
+//a função LoadAppConfig será chamada da função main
 func LoadAppConfig() {
 	log.Println("Loading Server Configurations...")
-	// caminho alternativo onde está o arquivo
+	//caminho de onde está o arquivo
 	viper.AddConfigPath("./config")
-	// nome do arquivo que queremos carregar
+	//nome do arquivo que queremos carregar
 	viper.SetConfigName("config")
-	// extensão do arquivo
+	//extensão do arquivo
 	viper.SetConfigType("json")
-	// lê o arquivo e carrega seu conteúdo
+	//lê o arquivo e carrega seu conteúdo
 	err := viper.ReadInConfig()
 	if err != nil {
 		log.Fatal(err)
@@ -38,5 +35,4 @@ func LoadAppConfig() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("concluido sem erros")
 }
