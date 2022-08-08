@@ -2,6 +2,7 @@ package main
 
 import (
 	"golang-crud-sql/config"
+	"golang-crud-sql/controllers"
 	"golang-crud-sql/database"
 	"golang-crud-sql/routes"
 )
@@ -17,6 +18,7 @@ func main() {
 	database.Connect(config.AppConfig.ConnectionString)
 	//acessa a função Migrate do pacote database
 	database.Migrate()
+	controllers.ApiConsumer()
 	//log.Println(fmt.Sprintf("Starting Server on port %s", config.AppConfig.Port))
 	//acessa a função HandleRequest do pacote routes
 	routes.HandleRequest()

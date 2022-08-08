@@ -31,6 +31,7 @@ func LoadAppConfig() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	//decodifica o json para o tipo struct AppConfig
 	err = viper.Unmarshal(&AppConfig)
 	if err != nil {
 		log.Fatal(err)

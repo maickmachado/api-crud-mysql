@@ -20,6 +20,7 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 	//usando GORM é criado um novo produto usando os dados da variável product
 	database.Instance.Create(&product)
 	//codifica os dados do produto no estilo struct para json
+	//verificar se só serve para printar a informação em w
 	json.NewEncoder(w).Encode(product)
 }
 
