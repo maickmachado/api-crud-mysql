@@ -17,7 +17,7 @@ type PokemonSpecies struct {
 	Name string `json:"name"`
 }
 
-type Product struct {
+type PokemonDataBase struct {
 	ID   int    `json:"id"`
 	Name string `json:"pokemon"`
 }

@@ -21,7 +21,7 @@ func ApiConsumer() {
 
 	json.NewDecoder(response.Body).Decode(&responseObject)
 
-	var pokemon entities.Product
+	var pokemon entities.PokemonDataBase
 
 	for _, value := range responseObject.Pokemon {
 		pokemon.ID = value.EntryNo
