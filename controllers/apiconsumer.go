@@ -6,16 +6,11 @@ import (
 	"golang-crud-sql/database"
 	"golang-crud-sql/entities"
 	"net/http"
-	"os"
 )
 
 func ApiConsumer() {
 	//recebe os dados da API no formato de []bytes
-	response, err := http.Get("http://pokeapi.co/api/v2/pokedex/kanto/")
-	if err != nil {
-		fmt.Print(err.Error())
-		os.Exit(1)
-	}
+	response, _ := http.Get("http://pokeapi.co/api/v2/pokedex/kanto/")
 
 	var responseObject entities.Response
 
@@ -23,10 +18,28 @@ func ApiConsumer() {
 
 	var pokemon entities.PokemonDataBase
 
-	for _, value := range responseObject.Pokemon {
+	for index, value := range responseObject.Pokemon {
 		pokemon.ID = value.EntryNo
 		pokemon.Name = value.Species.Name
+
+		response, _ := http.Get(fmt.Sprintf("https://pokeapi.co/api/v2/pokemon/%v", index+1))
+
+		var responseObject entities.PokemonDetail
+
+		json.NewDecoder(response.Body).Decode(&responseObject)
+
+		//acredito que ta errado aqui nessa posição nunca zera e só cresce
+		//confirar se colocando no final do for o nil zera a variavel
+		var typesData string
+
+		for _, value := range responseObject.PokemonTypesData {
+			//tentar o slot para criar no struct
+			typesData = typesData + value.Types.Name
+
+		}
+		pokemon.Type = typesData
 		database.Instance.Create(&pokemon)
+		typesData = ""
 	}
 	// for i := 0; i < len(responseObject.Pokemon); i++ {
 	// 	fmt.Println(responseObject.Pokemon[i].Species.Name)

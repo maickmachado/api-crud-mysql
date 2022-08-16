@@ -17,7 +17,22 @@ type PokemonSpecies struct {
 	Name string `json:"name"`
 }
 
+//Structs dos tipos dos pokemons
+type PokemonDetail struct {
+	PokemonTypesData []PokemonTypesData `json:"types"`
+}
+
+type PokemonTypesData struct {
+	Types PokemonTypes `json:"type"`
+}
+
+type PokemonTypes struct {
+	Name string `json:"name"`
+}
+
+//struct do database
 type PokemonDataBase struct {
 	ID   int    `json:"id"`
 	Name string `json:"pokemon"`
+	Type string `json:"type"`
 }
