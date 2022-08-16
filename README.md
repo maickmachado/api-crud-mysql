@@ -14,8 +14,11 @@
 
 ## Packages:
 To create this CRUD (Create, Read, Update and Delete) project we use the following packages:
+
     1) gorm.io/gorm
+    
     > used to conect the Mysql database
+    
     2) github.com/spf13/viper
     > used to easy config everything in the project
     3) github.com/gorilla/mux
