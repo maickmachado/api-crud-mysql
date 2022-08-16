@@ -9,9 +9,9 @@
 
 ## What to expect from this project: 
 
-    1) this project consume a API (http://pokeapi.co/api/v2/pokedex/kanto/);
-    2) put all information from the API into the database (Mysql);
-    3) and allow the user to access the information, create new pokemons, update the existing ones and delete then;
+1) this project consume a API (http://pokeapi.co/api/v2/pokedex/kanto/);
+2) put all information from the API into the database (Mysql);
+3) and allow the user to access the information, create new pokemons, update the existing ones and delete then;
 
 ## Packages:
 To create this CRUD (Create, Read, Update and Delete) project we use the following packages
