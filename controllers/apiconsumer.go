@@ -16,32 +16,28 @@ func ApiConsumer() {
 
 	json.NewDecoder(response.Body).Decode(&responseObject)
 
-	var pokemon entities.PokemonDataBase
+	var pokemonNames entities.NamesDataBase
+	var pokemonsTypes entities.TypesDataBase
 
 	for index, value := range responseObject.Pokemon {
-		pokemon.ID = value.EntryNo
-		pokemon.Name = value.Species.Name
+		pokemonNames.ID = value.EntryNo
+		pokemonNames.Name = value.Species.Name
+
+		database.Instance.Create(&pokemonNames)
+
+		pokemonsTypes.NamesDataBaseID = value.EntryNo
 
 		response, _ := http.Get(fmt.Sprintf("https://pokeapi.co/api/v2/pokemon/%v", index+1))
-
 		var responseObject entities.PokemonDetail
 
 		json.NewDecoder(response.Body).Decode(&responseObject)
 
-		//acredito que ta errado aqui nessa posição nunca zera e só cresce
-		//confirar se colocando no final do for o nil zera a variavel
-		var typesData string
-
 		for _, value := range responseObject.PokemonTypesData {
-			//tentar o slot para criar no struct
-			typesData = typesData + value.Types.Name
+			pokemonsTypes.PokemonTypes = value.PokemonTypes.Name
 
+			database.Instance.Create(&pokemonsTypes)
 		}
-		pokemon.Type = typesData
-		database.Instance.Create(&pokemon)
-		typesData = ""
+
 	}
-	// for i := 0; i < len(responseObject.Pokemon); i++ {
-	// 	fmt.Println(responseObject.Pokemon[i].Species.Name)
-	// }
+
 }

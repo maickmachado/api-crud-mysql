@@ -23,16 +23,25 @@ type PokemonDetail struct {
 }
 
 type PokemonTypesData struct {
-	Types PokemonTypes `json:"type"`
+	PokemonTypes PokemonTypes `json:"type"`
 }
 
 type PokemonTypes struct {
 	Name string `json:"name"`
 }
 
-//struct do database
-type PokemonDataBase struct {
-	ID   int    `json:"id"`
-	Name string `json:"pokemon"`
-	Type string `json:"type"`
+//struct do database com os nomes
+type NamesDataBase struct {
+	//gorm.Model
+	ID            int             `json:"id"`
+	Name          string          `json:"pokemon"`
+	TypesDataBase []TypesDataBase `json:"types"`
+}
+
+//struct do database com os tipos
+type TypesDataBase struct {
+	//gorm.Model
+	NamesDataBaseID int    `json:"-"`
+	PokemonTypes    string `json:"type"`
+	//NamesDataBase   NamesDataBase
 }

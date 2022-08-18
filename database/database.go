@@ -26,6 +26,8 @@ func Connect(connectionString string) {
 
 //função que assegura que a tabela do banco de dados será igual ao struct criado
 func Migrate() {
-	Instance.AutoMigrate(&entities.PokemonDataBase{})
+	namesDatabase := &entities.NamesDataBase{}
+	typesDatabase := &entities.TypesDataBase{}
+	Instance.AutoMigrate(namesDatabase, typesDatabase)
 	log.Println("Database Migration Completed...")
 }

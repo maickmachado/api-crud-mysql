@@ -7,13 +7,14 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"gorm.io/gorm/clause"
 )
 
 func CreateDataPokemon(w http.ResponseWriter, r *http.Request) {
 	//define o estilo que os dados serão mostrados em w
 	w.Header().Set("Content-Type", "application/json")
 	//cria uma variável do tipo Product do pacote entities
-	var pokemon entities.PokemonDataBase
+	var pokemon entities.NamesDataBase
 	//decodifica os dados recebidos em 'r' e coloca dentro do endereço na memória da variável product
 	//pega dados no estilo json para struct
 	json.NewDecoder(r.Body).Decode(&pokemon)
@@ -25,7 +26,7 @@ func CreateDataPokemon(w http.ResponseWriter, r *http.Request) {
 }
 
 func checkIfPokemonExists(pokemonId string) bool {
-	var pokemon entities.PokemonDataBase
+	var pokemon entities.NamesDataBase
 	//passar como parâmetro o endereço de memória da variável e segundo parametro o ID
 	//usa GORM para achar o primeiro item
 	database.Instance.First(&pokemon, pokemonId)
@@ -47,7 +48,7 @@ func GetPokemonById(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode("Pokemon não encontrado!")
 		return
 	}
-	var pokemon entities.PokemonDataBase
+	var pokemon entities.NamesDataBase
 	//utiliza o endereço na memória do product para procurar o primeiro item com o productId
 	database.Instance.First(&pokemon, pokemonId)
 	w.Header().Set("Content-Type", "application/json")
@@ -67,9 +68,10 @@ func GetPokemonByName(w http.ResponseWriter, r *http.Request) {
 
 func GetDataPokemons(w http.ResponseWriter, r *http.Request) {
 	//criado um slice do struct Product
-	var pokemon []entities.PokemonDataBase
+	var pokemon []entities.NamesDataBase
 	//procura no banco de dados todos os products
-	database.Instance.Find(&pokemon)
+	//database.Instance.Find(&pokemon)
+	database.Instance.Preload(clause.Associations).Find(&pokemon)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(pokemon)
@@ -85,7 +87,7 @@ func UpdateDataPokemon(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode("Pokemon não encontrado!")
 		return
 	}
-	var pokemon entities.PokemonDataBase
+	var pokemon entities.NamesDataBase
 	//pega o primeiro item no banco de dados com o determinado ID
 	database.Instance.First(&pokemon, pokemonId)
 	//decodifica o dado recebido em 'r' no tipo product
@@ -109,7 +111,7 @@ func DeleteDataPokemon(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode("Pokemon não encontrado!")
 		return
 	}
-	var pokemon entities.PokemonDataBase
+	var pokemon entities.NamesDataBase
 	//GORM acessa o banco de dados e deleta o product
 	database.Instance.Delete(&pokemon, pokemonId)
 	json.NewEncoder(w).Encode("Pokemon deletado com sucesso!")
